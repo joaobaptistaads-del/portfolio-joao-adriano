@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
 import { stats } from "@/lib/data";
 
 const Globe3D = dynamic(() => import("./Globe3D"), { ssr: false });
@@ -54,11 +53,7 @@ export default function Hero() {
       <div className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
 
       <div className="section-container relative grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
+        <div className="animate-fade-in-up">
           <span className="badge-pill mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-glow" />
             Available for new projects
@@ -92,24 +87,28 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <div className="text-2xl font-bold text-white">
-                  {stat.value}
+          <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-6">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-2xl font-bold text-white">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-white/50">{stat.label}</div>
                 </div>
-                <div className="text-xs text-white/50">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+              ))}
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9 }}
-          className="relative mx-auto aspect-square w-full max-w-[520px]"
-        >
+            <div className="hidden items-center gap-2 text-xs text-white/40 lg:flex">
+              <span className="flex h-6 w-4 items-start justify-center rounded-full border border-white/20 p-1">
+                <span className="h-1.5 w-1 animate-float rounded-full bg-white/50" />
+              </span>
+              Scroll to explore
+            </div>
+          </div>
+        </div>
+
+        <div className="animate-fade-in-scale relative mx-auto aspect-square w-full max-w-[520px]">
           <div className="absolute inset-8 rounded-full bg-blue-500/10 blur-3xl" />
           <Globe3D />
 
@@ -146,7 +145,7 @@ export default function Hero() {
               BETTER TOMORROW
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
